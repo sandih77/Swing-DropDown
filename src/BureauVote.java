@@ -1,4 +1,5 @@
 package election;
+import entity.Depute;
 
 public class BureauVote {
 

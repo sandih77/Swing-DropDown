@@ -1,1 +1,4 @@
 #NomGroupe|DateFondation
+A|01/01/1111
+B|01/01/1111
+C|01/01/1111

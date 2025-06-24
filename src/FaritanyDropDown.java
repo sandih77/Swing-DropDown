@@ -3,8 +3,9 @@ package component;
 import entity.Faritany;
 import java.io.*;
 import java.util.*;
+import javax.swing.*;
 
-public class FaritanyDropDown {
+public class FaritanyDropDown extends JComboBox {
 
     Faritany[] listFaritany;
 
@@ -23,7 +24,10 @@ public class FaritanyDropDown {
                     continue;
                 }
 
-                list.add(new Faritany(line));
+                // System.out.println("Ligne lue : " + line);
+                Faritany faritany = new Faritany(line);
+                list.add(faritany);
+                this.addItem(faritany);
             }
         } catch (IOException e) {
             e.printStackTrace();

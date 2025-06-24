@@ -1,1 +1,35 @@
 #NomDepute(:Suppleant)|Distrika,nbElu|Groupe
+Jean Rakoto|Antananarivo I,1|A
+Hery Ranaivo|Antananarivo II,1|B
+Lala Rabe|Ambohidratrimo,1|A
+Mamy Andry|Arivonimamo,1|C
+Boto R.|Soavinandriana,1|B
+Doda Tiana|Tsiroanomandidy,1|A
+Claudine R.|Toamasina I,1|B
+Dera Jean|Toamasina II,1|A
+Mbola Z.|Brickaville,1|HVM
+Tovo Rakoto|Fenoarivo Atsinanana,1|C
+Soa Hanta|Maroantsetra,1|B
+Jao Mamy|Ambatondrazaka,1|A
+Rina N.|Fianarantsoa I District,1|B
+Benja T.|Ambalavao,1|A
+Fanja R.|Ihosy,1|C
+Koto J.|Mananjary,1|A
+Neny L.|Nosy Varika,1|B
+Bezano R.|Mahajanga II,1|A
+Fara Z.|Maevatanana,1|B
+Remy H.|Kandreho,1|A
+Tata V.|Antsohihy,1|A
+Rado J.|Toliara I,1|B
+Soa D.|Ambovombe,1|A
+Dodo K.|Bekily,1|GTT
+Nina A.|Fort-Dauphin,1|B
+Jao H.|Amboasary Sud,1|A
+Tina K.|Antsiranana II,1|A
+Sitraka M.|Sambava,1|B
+Andry F.|Antalaha,1|C
+Rabe M.|Fianarantsoa I District,1|A
+Rina F.|Fianarantsoa II District,1|B
+Mamy C.|Vohibato,1|A
+Soana J.|Manakara Atsimo,1|B
+Lala F.|Vondrozo,1|C

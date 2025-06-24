@@ -1,4 +1,4 @@
-package election;
+package entity;
 
 public class Depute {
 
@@ -6,6 +6,12 @@ public class Depute {
     String nomDistrika;
     String nomGroupe;
     String nomSuppleant;
+
+    public Depute(String nom, String nomDistrika, String groupe) {
+        this.nom = nom;
+        this.nomDistrika = nomDistrika;
+        this.nomGroupe = groupe;
+    }
 
     public String getNom() {
         return this.nom;
@@ -21,5 +27,10 @@ public class Depute {
 
     public String getSuppleant() {
         return this.nomSuppleant;
+    }
+
+    @Override
+    public String toString() {
+        return this.nom;
     }
 }
