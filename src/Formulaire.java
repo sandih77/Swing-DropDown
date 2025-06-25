@@ -8,6 +8,9 @@ import javax.swing.*;
 
 public class Formulaire extends JFrame {
 
+    InsertButton insertButton;
+    JTextField votes;
+
     public Formulaire() {
         setTitle("Swing DropDown");
         setSize(400, 200);
@@ -24,7 +27,9 @@ public class Formulaire extends JFrame {
 
         JPanel container = new JPanel(new FlowLayout());
 
-        InsertButton insertButton = new InsertButton(
+        votes = new JTextField();
+
+        insertButton = new InsertButton(
                 "Submit",
                 localite.getDistrikaDropDown(),
                 localite.getFaritraDropDown(),
@@ -32,6 +37,7 @@ public class Formulaire extends JFrame {
         );
 
         container.add(localite);
+        container.add(votes);
         container.add(insertButton);
         container.add(new JLabel("Député :"));
         container.add(deputeDropDown);

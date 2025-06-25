@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 
 public class DeputeDropDown extends JComboBox {
 
-    private Depute[] listDepute;
+    Depute[] listDepute;
 
     public Depute[] getListDepute() {
         return this.listDepute;
