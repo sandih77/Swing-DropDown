@@ -7,6 +7,7 @@ import election.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,12 +43,12 @@ public class SearchButton extends JButton {
     }
 
     public void afficherVotesFiltres() {
-        String nomDistrika = distrikaDropDown.getSelectedItem() != null ?
-                distrikaDropDown.getSelectedItem().toString() : "";
-        String nomFaritra = faritraDropDown.getSelectedItem() != null ?
-                faritraDropDown.getSelectedItem().toString() : "";
-        String nomFaritany = faritanyDropDown.getSelectedItem() != null ?
-                faritanyDropDown.getSelectedItem().toString() : "";
+        String nomDistrika = distrikaDropDown.getSelectedItem() != null
+                ? distrikaDropDown.getSelectedItem().toString() : "";
+        String nomFaritra = faritraDropDown.getSelectedItem() != null
+                ? faritraDropDown.getSelectedItem().toString() : "";
+        String nomFaritany = faritanyDropDown.getSelectedItem() != null
+                ? faritanyDropDown.getSelectedItem().toString() : "";
 
         List<Vote> votes = Vote.lireVotesDepuisFichier("data/Vote.txt");
 
@@ -76,18 +77,33 @@ public class SearchButton extends JButton {
         }
 
         ElectionResult result = new ElectionResult();
+
         if (nomDistrika.equalsIgnoreCase("Tous") || nomDistrika.isEmpty()) {
-            Map<String, String> gagnants = result.getGagnantParDistrika(votes);
-            StringBuilder sb = new StringBuilder("Gagnants par Distrika :\n");
-            for (Map.Entry<String, String> entry : gagnants.entrySet()) {
+            // Cas : Tous les distrika → charger la map complète
+            Map<String, Distrika> distrikaMap = DistrikaDropDown.getAllDistrikaAsMap(); // 🔧 tu dois créer cette méthode
+            Map<String, String> elus = result.getElusParDistrika(votes, distrikaMap);
+
+            StringBuilder sb = new StringBuilder("Élus par Distrika :\n");
+            for (Map.Entry<String, String> entry : elus.entrySet()) {
                 sb.append("- ").append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
             }
-            if (gagnantArea != null) gagnantArea.setText(sb.toString());
+
+            if (gagnantArea != null) {
+                gagnantArea.setText(sb.toString());
+            }
+
         } else {
-            Map<String, String> gagnantUnique = result.getGagnantParDistrika(votesFiltres);
-            String gagnant = gagnantUnique.getOrDefault(nomDistrika, "Aucun vote");
-            if (gagnantArea != null)
-                gagnantArea.setText("Gagnant pour " + nomDistrika + " : " + gagnant);
+            // Cas : un seul distrika
+            Distrika selectedDistrika = distrikaDropDown.getSelectedDistrika();
+            Map<String, Distrika> oneDistrikaMap = new HashMap<>();
+            oneDistrikaMap.put(nomDistrika, selectedDistrika);
+
+            Map<String, String> elus = result.getElusParDistrika(votesFiltres, oneDistrikaMap);
+            String texteElu = elus.getOrDefault(nomDistrika, "Aucun élu");
+
+            if (gagnantArea != null) {
+                gagnantArea.setText("Élu(s) pour " + nomDistrika + " : " + texteElu);
+            }
         }
     }
 }

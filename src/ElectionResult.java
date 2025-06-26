@@ -1,7 +1,8 @@
 package election;
 
+import entity.Distrika;
+
 import java.util.*;
-import java.io.*;
 
 public class ElectionResult {
 
@@ -13,17 +14,16 @@ public class ElectionResult {
 
     public void calculerResultats(String cheminFichier) {
         List<Vote> votes = Vote.lireVotesDepuisFichier(cheminFichier);
-        for (int i = 0; i < votes.size(); i++) {
-            Vote vote = votes.get(i);
+        calculerResultatsDepuisListe(votes);
+    }
+
+    public void calculerResultatsDepuisListe(List<Vote> votes) {
+        resultatParCandidat.clear();
+        for (Vote vote : votes) {
             String candidat = vote.getCandidat();
             int nb = vote.getNbVotes();
-
-            if (!resultatParCandidat.containsKey(candidat)) {
-                resultatParCandidat.put(candidat, nb);
-            } else {
-                int ancien = resultatParCandidat.get(candidat);
-                resultatParCandidat.put(candidat, ancien + nb);
-            }
+            resultatParCandidat.put(candidat,
+                    resultatParCandidat.getOrDefault(candidat, 0) + nb);
         }
     }
 
@@ -31,61 +31,68 @@ public class ElectionResult {
         return resultatParCandidat;
     }
 
-    public String getGagnant() {
-        String gagnant = "Aucun vote";
+    public Map.Entry<String, Integer> getGagnantAvecVotes() {
+        String gagnant = "Aucun";
         int maxVotes = -1;
 
-        for (String candidat : resultatParCandidat.keySet()) {
-            int nbVotes = resultatParCandidat.get(candidat);
-            if (nbVotes > maxVotes) {
-                maxVotes = nbVotes;
-                gagnant = candidat;
+        for (Map.Entry<String, Integer> entry : resultatParCandidat.entrySet()) {
+            if (entry.getValue() > maxVotes) {
+                maxVotes = entry.getValue();
+                gagnant = entry.getKey();
             }
         }
 
-        return gagnant;
+        return new AbstractMap.SimpleEntry<>(gagnant, maxVotes);
     }
 
-    public Map<String, String> getGagnantParDistrika(List<Vote> votes) {
-        Map<String, Map<String, Integer>> resultatParDistrika = new HashMap<>();
+    public Map<String, String> getElusParDistrika(List<Vote> votes, Map<String, Distrika> distrikaMap) {
+        Map<String, Map<String, Integer>> resultats = new HashMap<>();
 
-        for (int i = 0; i < votes.size(); i++) {
-            Vote vote = votes.get(i);
-            String distrika = vote.getDistrika();
-            String candidat = vote.getCandidat();
-            int nb = vote.getNbVotes();
+        for (Vote v : votes) {
+            String distrika = v.getDistrika();
+            String candidat = v.getCandidat();
+            int nbVotes = v.getNbVotes();
 
-            if (!resultatParDistrika.containsKey(distrika)) {
-                resultatParDistrika.put(distrika, new HashMap<>());
-            }
-
-            Map<String, Integer> candidats = resultatParDistrika.get(distrika);
-            if (!candidats.containsKey(candidat)) {
-                candidats.put(candidat, nb);
-            } else {
-                candidats.put(candidat, candidats.get(candidat) + nb);
-            }
+            resultats
+                    .computeIfAbsent(distrika, k -> new HashMap<>())
+                    .merge(candidat, nbVotes, Integer::sum);
         }
 
-        Map<String, String> gagnantsParDistrika = new HashMap<>();
+        Map<String, String> elusParDistrika = new HashMap<>();
 
-        for (String distrika : resultatParDistrika.keySet()) {
-            Map<String, Integer> candidats = resultatParDistrika.get(distrika);
+        for (Map.Entry<String, Map<String, Integer>> entry : resultats.entrySet()) {
+            String nomDistrika = entry.getKey();
+            Map<String, Integer> candidats = entry.getValue();
 
-            String gagnant = "Aucun";
-            int maxVotes = -1;
+            List<Map.Entry<String, Integer>> classement = new ArrayList<>(candidats.entrySet());
+            classement.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
 
-            for (String candidat : candidats.keySet()) {
-                int nbVotes = candidats.get(candidat);
-                if (nbVotes > maxVotes) {
-                    maxVotes = nbVotes;
-                    gagnant = candidat;
+            int nbElu = distrikaMap.containsKey(nomDistrika)
+                    ? distrikaMap.get(nomDistrika).getNbElu() : 1;
+
+            if (classement.isEmpty()) {
+                elusParDistrika.put(nomDistrika, "Aucun vote");
+                continue;
+            }
+
+            String resultat;
+            if (nbElu == 1 || classement.size() == 1) {
+                resultat = classement.get(0).getKey() + " (" + classement.get(0).getValue() + " votes)";
+            } else {
+                int v1 = classement.get(0).getValue();
+                int v2 = classement.get(1).getValue();
+
+                if (v2 * 2 > v1) {
+                    resultat = classement.get(0).getKey() + " et " + classement.get(1).getKey() +
+                            " (" + v1 + " / " + v2 + " votes)";
+                } else {
+                    resultat = classement.get(0).getKey() + " et son suppleant" + " (" + v1 + " votes)";
                 }
             }
 
-            gagnantsParDistrika.put(distrika, gagnant);
+            elusParDistrika.put(nomDistrika, resultat);
         }
 
-        return gagnantsParDistrika;
+        return elusParDistrika;
     }
 }

@@ -7,65 +7,58 @@ import gui.listener.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class Formulaire extends JFrame {
+public class Formulaire extends JPanel {
 
     InsertButton insertButton;
     JTextField votes;
 
     public Formulaire() {
-        setTitle("Swing DropDown");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
 
-
-        // 🔁 Composant central contenant tous les dropdowns (Faritany, Faritra, Distrika)
         Localite localite = new Localite();
         DistrikaDropDown distrikaDropDown = localite.getDistrikaDropDown();
 
-        // 📌 Composants dropdown supplémentaires
         DeputeDropDown deputeDropDown = new DeputeDropDown();
         deputeDropDown.getDataDepute("data/Depute.txt");
 
         BureauVoteDropDown bureauVoteDropDown = new BureauVoteDropDown();
-        bureauVoteDropDown.setBureauVotes(localite.getDistrikaDropDown().getListBureauVotes());
+        bureauVoteDropDown.setBureauVotes(distrikaDropDown.getListBureauVotes());
 
-        // 🔁 Listeners entre composants
         localite.getFaritanyDropDown().addActionListener(
                 new FaritanyListener(localite.getFaritanyDropDown(), localite.getFaritraDropDown())
         );
-
         localite.getFaritraDropDown().addActionListener(
-                new FaritraListener(localite.getFaritraDropDown(), localite.getDistrikaDropDown())
+                new FaritraListener(localite.getFaritraDropDown(), distrikaDropDown)
+        );
+        distrikaDropDown.addActionListener(
+                new DistrikaListener(distrikaDropDown, bureauVoteDropDown, deputeDropDown)
         );
 
-        localite.getDistrikaDropDown().addActionListener(
-                new DistrikaListener(localite.getDistrikaDropDown(), bureauVoteDropDown, deputeDropDown)
-        );
+        votes = new JTextField(10);
 
-        // 📝 Zone de saisie de votes
-        votes = new JTextField();
-
-        // 🔘 Bouton d'insertion
         insertButton = new InsertButton(
-                "Submit",
-                localite.getDistrikaDropDown(),
+                "Soumettre",
+                distrikaDropDown,
                 localite.getFaritraDropDown(),
                 localite.getFaritanyDropDown(),
                 deputeDropDown,
                 votes
         );
 
-        // 🎨 Organisation graphique
-        JPanel container = new JPanel(new GridLayout(7, 1));
+        add(wrapPanel("Localité :", localite));
+        add(wrapPanel("Député :", deputeDropDown));
+        add(wrapPanel("Bureau de Vote :", bureauVoteDropDown));
+        add(wrapPanel("Nombre de Votes :", votes, insertButton));
+    }
 
-        container.add(localite);
-        container.add(votes);
-        container.add(insertButton);
-        container.add(bureauVoteDropDown);
-        container.add(new JLabel("Député :"));
-        container.add(deputeDropDown);
-
-        add(container);
+    public JPanel wrapPanel(String labelText, JComponent... components) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new Dimension(150, 25)); 
+        panel.add(label);
+        for (JComponent comp : components) {
+            panel.add(comp);
+        }
+        return panel;
     }
 }

@@ -7,18 +7,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class Fenetre extends JFrame {
+public class Fenetre extends JPanel {
 
     public Fenetre() {
-        setTitle("Résultats Électoraux");
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        // Container principal
-        JPanel container = new JPanel(new BorderLayout());
-
-        // Panel haut : filtres et bouton rechercher
         JPanel topPanel = new JPanel(new FlowLayout());
 
         Localite localite = new Localite();
@@ -33,7 +26,6 @@ public class Fenetre extends JFrame {
         topPanel.add(localite);
         topPanel.add(searchButton);
 
-        // Centre : tableau des résultats
         String[] colonnes = {"Faritany", "Faritra", "Distrika", "Candidat", "Nb de Votes"};
         DefaultTableModel model = new DefaultTableModel(colonnes, 0);
         JTable resultTable = new JTable(model);
@@ -41,7 +33,6 @@ public class Fenetre extends JFrame {
 
         searchButton.setResultTable(resultTable);
 
-        // Bas : zone de texte pour afficher les gagnants
         JTextArea gagnantArea = new JTextArea(5, 50);
         gagnantArea.setEditable(false);
         gagnantArea.setLineWrap(true);
@@ -50,11 +41,8 @@ public class Fenetre extends JFrame {
 
         searchButton.setGagnantArea(gagnantArea);
 
-        // Ajout des composants au container
-        container.add(topPanel, BorderLayout.NORTH);
-        container.add(scrollPane, BorderLayout.CENTER);
-        container.add(gagnantScroll, BorderLayout.SOUTH);
-
-        add(container);
+        add(topPanel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(gagnantScroll, BorderLayout.SOUTH);
     }
 }

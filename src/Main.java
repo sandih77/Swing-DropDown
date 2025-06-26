@@ -1,9 +1,9 @@
 package main;
 
-import gui.Formulaire;
+import gui.MainFrame;
 
 public class Main {
     public static void main(String[] args) {
-        new Formulaire().setVisible(true);
+        new MainFrame().setVisible(true);
     }
 }

@@ -60,7 +60,7 @@ public class DistrikaDropDown extends JComboBox {
                     System.out.println("Nombre d’electeurs invalide : " + parts[2]);
                 }
 
-                Distrika d = new Distrika(nomDistrika, faritra , nbelu);
+                Distrika d = new Distrika(nomDistrika, faritra, nbelu);
                 list.add(d);
                 this.addItem(d);
                 // System.out.println("Distrika ajoute: " + d);
@@ -106,6 +106,26 @@ public class DistrikaDropDown extends JComboBox {
                 this.addItem(d);
             }
         }
+    }
+
+    public static Map<String, Distrika> getAllDistrikaAsMap() {
+        List<Distrika> distrikas = Distrika.lireDepuisFichier("data/Distrika.txt"); // ← adapte le chemin si besoin
+        Map<String, Distrika> map = new HashMap<>();
+        for (Distrika d : distrikas) {
+            map.put(d.getNom(), d);
+        }
+        return map;
+    }
+
+    public Distrika getSelectedDistrika() {
+        Object selected = this.getSelectedItem();
+        if (selected == null) {
+            return null;
+        }
+        if (selected instanceof Distrika) {
+            return (Distrika) selected;
+        }
+        return null;
     }
 
 }

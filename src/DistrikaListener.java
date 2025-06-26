@@ -9,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DistrikaListener implements ActionListener {
-    private DistrikaDropDown distrikaDropDown;
-    private BureauVoteDropDown bureauVoteDropDown;
-    private DeputeDropDown deputeDropDown;
+    DistrikaDropDown distrikaDropDown;
+    BureauVoteDropDown bureauVoteDropDown;
+    DeputeDropDown deputeDropDown;
 
     public DistrikaListener(DistrikaDropDown distrikaDropDown, BureauVoteDropDown bureauVoteDropDown, DeputeDropDown deputeDropDown) {
         this.distrikaDropDown = distrikaDropDown;
@@ -26,7 +26,6 @@ public class DistrikaListener implements ActionListener {
             Distrika d = (Distrika) selected;
             String nomDistrika = d.getNom();
 
-            // 🔄 Filtrer les bureaux de vote
             bureauVoteDropDown.removeAllItems();
             for (BureauVote bv : distrikaDropDown.getListBureauVotes()) {
                 if (bv.getDistrika().equalsIgnoreCase(nomDistrika)) {
@@ -34,7 +33,6 @@ public class DistrikaListener implements ActionListener {
                 }
             }
 
-            // 🔄 Filtrer les députés
             if (deputeDropDown != null) {
                 deputeDropDown.filterByDistrika(nomDistrika);
             }
