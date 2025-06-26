@@ -1,46 +1,8 @@
 #Faritra|Distrika
-Mada|Tous
-Analamanga|Antananarivo I
-Analamanga|Antananarivo II
-Analamanga|Ambohidratrimo
-Itasy|Arivonimamo
-Itasy|Miarinarivo
-Itasy|Soavinandriana
-Bongolava|Tsiroanomandidy
-Bongolava|Fenoarivobe
-Atsinanana|Toamasina I
-Atsinanana|Toamasina II
-Atsinanana|Brickaville
-Analanjirofo|Fenoarivo Atsinanana
-Analanjirofo|Maroantsetra
-Alaotra-Mangoro|Ambatondrazaka
-Alaotra-Mangoro|Amparafaravola
-Haute Matsiatra|Fianarantsoa I
-Haute Matsiatra|Ambalavao
-Ihorombe|Ihosy
-Ihorombe|Iakora
-Vatovavy|Mananjary
-Vatovavy|Nosy Varika
-Boeny|Mahajanga I
-Boeny|Mahajanga II
-Betsiboka|Maevatanana
-Betsiboka|Kandreho
-Sofia|Antsohihy
-Sofia|Bealanana
-Atsimo-Andrefana|Toliara I
-Atsimo-Andrefana|Toliara II
-Androy|Ambovombe
-Androy|Bekily
-Anosy|Fort-Dauphin
-Anosy|Amboasary Sud
-Diana|Antsiranana I
-Diana|Antsiranana II
-Sava|Sambava
-Sava|Antalaha
-Fianaratsoa I|Fianarantsoa I District
-Fianaratsoa I|Fianarantsoa II District
-Fianaratsoa II|Ikalamavony
-Fianaratsoa II|Vohibato
-Manakara|Manakara Atsimo
-Manakara|Vondrozo
-
+Tous|Tous:Tous|1
+Antananarivo Atsimondrano|Ampitatafika:BV101,BV102|1
+Antsirabe I|Ambohimena:BV201,BV202|2
+Toamasina I|Tanamabao Verrerie:BV301,BV302|2
+Arivonimamo|Ambatomanga:BV401|1
+Soavinandriana|Talata-Dondona:BV402|1
+Miarinarivo|Talata-Dondona1:BV403|1

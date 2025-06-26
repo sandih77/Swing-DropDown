@@ -4,10 +4,12 @@ public class Distrika {
 
     String nom;
     String nomFaritra;
+    int nbElu;
 
-    public Distrika(String nom, String faritra) {
+    public Distrika(String nom, String faritra, int nbElu) {
         this.nom = nom;
         this.nomFaritra = faritra;
+        this.nbElu = nbElu;
     }
 
     public String getNom() {
@@ -16,6 +18,10 @@ public class Distrika {
 
     public String getFaritra() {
         return this.nomFaritra;
+    }
+
+    public int getNbElu() {
+        return this.nbElu;
     }
 
     @Override

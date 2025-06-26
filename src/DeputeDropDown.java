@@ -32,12 +32,8 @@ public class DeputeDropDown extends JComboBox {
                 }
 
                 String nom = parts[0].trim();
-
-                String distrikaNbElu = parts[1].trim();
-                String groupe = parts.length > 2 ? parts[2].trim() : "";
-
-                String[] distrikaParts = distrikaNbElu.split(",");
-                String distrika = distrikaParts[0].trim();
+                String distrika = parts[1].trim();
+                String groupe = parts[2].trim();
 
                 Depute d = new Depute(nom, distrika, groupe);
                 list.add(d);

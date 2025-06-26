@@ -13,11 +13,18 @@ public class InsertButton extends JButton {
     DeputeDropDown deputeDropDown;
     JTextField votes;
 
-    public InsertButton(String label, DistrikaDropDown distrikaDropDown, FaritraDropDown faritraDropDown, FaritanyDropDown faritanyDropDown) {
+    public InsertButton(String label,
+            DistrikaDropDown distrikaDropDown,
+            FaritraDropDown faritraDropDown,
+            FaritanyDropDown faritanyDropDown,
+            DeputeDropDown deputeDropDown,
+            JTextField votes) {
         super(label);
         this.distrikaDropDown = distrikaDropDown;
         this.faritraDropDown = faritraDropDown;
         this.faritanyDropDown = faritanyDropDown;
+        this.deputeDropDown = deputeDropDown;
+        this.votes = votes;
 
         addActionListener(e -> saveVoteToFile("data/Vote.txt"));
     }
@@ -38,13 +45,15 @@ public class InsertButton extends JButton {
             return;
         }
 
-        String line = String.join("|",
-                d.getNom(),
-                depute.getNom(),
-                String.valueOf(nbVotes)
-        );
+        String line = String.join("|", d.getNom(), depute.getNom(), String.valueOf(nbVotes));
+        File file = new File(fichier);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fichier, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            if (!file.exists() || file.length() == 0) {
+                writer.write("#Distrika|Candidat|Nbvote");
+                writer.newLine();
+            }
+
             writer.write(line);
             writer.newLine();
             JOptionPane.showMessageDialog(this, "Vote enregistré avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
@@ -53,4 +62,5 @@ public class InsertButton extends JButton {
             e.printStackTrace();
         }
     }
+
 }

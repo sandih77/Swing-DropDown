@@ -1,23 +1,8 @@
 #Faritany|Faritra
 Mada|Tous
-Antananarivo|Analamanga
-Antananarivo|Itasy
-Antananarivo|Bongolava
-Toamasina|Atsinanana
-Toamasina|Analanjirofo
-Toamasina|Alaotra-Mangoro
-Fianarantsoa|Haute Matsiatra
-Fianarantsoa|Ihorombe
-Fianarantsoa|Vatovavy
-Mahajanga|Boeny
-Mahajanga|Betsiboka
-Mahajanga|Sofia
-Toliara|Atsimo-Andrefana
-Toliara|Androy
-Toliara|Anosy
-Antsiranana|Diana
-Antsiranana|Sava
-Fianaratsoa|Fianaratsoa I
-Fianaratsoa|Fianaratsoa II
-Fianaratsoa|Manakara
-
+Analamanga|Antananarivo Atsimondrano
+Vakinakaratra|Antsirabe I
+Antsinana|Toamasina I
+Itasy|Arivonimamo
+Itasy|Soavinandriana
+Itasy|Miarinarivo

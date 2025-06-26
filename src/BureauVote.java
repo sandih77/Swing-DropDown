@@ -1,9 +1,27 @@
 package election;
-import entity.Depute;
 
 public class BureauVote {
-
     String nom;
-    Depute[] listDeputes;
     String distrika;
+
+    public BureauVote(String nom) {
+        this.nom = nom;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public String getDistrika() {
+        return this.distrika;
+    }
+
+    public void setDistrika(String distrika) {
+        this.distrika = distrika;
+    }
+
+    @Override
+    public String toString() {
+        return nom;
+    }
 }
