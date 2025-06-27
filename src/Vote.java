@@ -41,7 +41,7 @@ public class Vote {
 
             while ((ligne = reader.readLine()) != null) {
                 if (premiereLigne) {
-                    premiereLigne = false; 
+                    premiereLigne = false;
                     continue;
                 }
 

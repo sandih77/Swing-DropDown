@@ -109,7 +109,7 @@ public class DistrikaDropDown extends JComboBox {
     }
 
     public static Map<String, Distrika> getAllDistrikaAsMap() {
-        List<Distrika> distrikas = Distrika.lireDepuisFichier("data/Distrika.txt"); // ← adapte le chemin si besoin
+        List<Distrika> distrikas = Distrika.lireDepuisFichier("data/Distrika.txt");
         Map<String, Distrika> map = new HashMap<>();
         for (Distrika d : distrikas) {
             map.put(d.getNom(), d);

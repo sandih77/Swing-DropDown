@@ -15,5 +15,5 @@ Ambatomanga|C7|4534
 Ambatomanga|C8|5433
 Talata-Dondona|C7|4995
 Talata-Dondona|C8|3775
-Talata-Dondona1|C7|4214
-Talata-Dondona1|C8|4535
+Talata-Dondona|C7|4214
+Talata-Dondona|C8|4535

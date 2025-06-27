@@ -8,7 +8,6 @@ import javax.swing.*;
 public class FaritraDropDown extends JComboBox {
 
     Faritra[] listFaritra;
-    Faritra[] listFaritraFilterd;
 
     public Faritra[] getListFaritra() {
         return this.listFaritra;

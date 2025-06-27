@@ -14,5 +14,4 @@ public class BureauVoteDropDown extends JComboBox {
             this.addItem(bv.getNom());
         }
     }
-
 }

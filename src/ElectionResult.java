@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ElectionResult {
 
-    private Map<String, Integer> resultatParCandidat;
+    Map<String, Integer> resultatParCandidat;
 
     public ElectionResult() {
         this.resultatParCandidat = new HashMap<>();
@@ -28,7 +28,7 @@ public class ElectionResult {
     }
 
     public Map<String, Integer> getResultats() {
-        return resultatParCandidat;
+        return this.resultatParCandidat;
     }
 
     public Map.Entry<String, Integer> getGagnantAvecVotes() {
@@ -83,8 +83,8 @@ public class ElectionResult {
                 int v2 = classement.get(1).getValue();
 
                 if (v2 * 2 > v1) {
-                    resultat = classement.get(0).getKey() + " et " + classement.get(1).getKey() +
-                            " (" + v1 + " / " + v2 + " votes)";
+                    resultat = classement.get(0).getKey() + " et " + classement.get(1).getKey()
+                            + " (" + v1 + " / " + v2 + " votes)";
                 } else {
                     resultat = classement.get(0).getKey() + " et son suppleant" + " (" + v1 + " votes)";
                 }

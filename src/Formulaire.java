@@ -13,7 +13,7 @@ public class Formulaire extends JPanel {
     JTextField votes;
 
     public Formulaire() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         Localite localite = new Localite();
         DistrikaDropDown distrikaDropDown = localite.getDistrikaDropDown();
@@ -54,7 +54,7 @@ public class Formulaire extends JPanel {
     public JPanel wrapPanel(String labelText, JComponent... components) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new Dimension(150, 25)); 
+        label.setPreferredSize(new Dimension(150, 25));
         panel.add(label);
         for (JComponent comp : components) {
             panel.add(comp);

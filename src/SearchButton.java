@@ -20,9 +20,9 @@ public class SearchButton extends JButton {
     JTextArea gagnantArea;
 
     public SearchButton(String label,
-                        DistrikaDropDown distrikaDropDown,
-                        FaritraDropDown faritraDropDown,
-                        FaritanyDropDown faritanyDropDown) {
+            DistrikaDropDown distrikaDropDown,
+            FaritraDropDown faritraDropDown,
+            FaritanyDropDown faritanyDropDown) {
         super(label);
         this.distrikaDropDown = distrikaDropDown;
         this.faritraDropDown = faritraDropDown;
@@ -66,8 +66,8 @@ public class SearchButton extends JButton {
             model.setRowCount(0);
             for (Vote v : votesFiltres) {
                 model.addRow(new Object[]{
-                        nomFaritany, nomFaritra,
-                        v.getDistrika(), v.getCandidat(), v.getNbVotes()
+                    nomFaritany, nomFaritra,
+                    v.getDistrika(), v.getCandidat(), v.getNbVotes()
                 });
             }
 

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DistrikaListener implements ActionListener {
+
     DistrikaDropDown distrikaDropDown;
     BureauVoteDropDown bureauVoteDropDown;
     DeputeDropDown deputeDropDown;

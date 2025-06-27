@@ -5,8 +5,8 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
 
     public MainFrame() {
-        setTitle("Application Électorale");
-        setSize(600, 400);
+        setTitle("ETU 004174");
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

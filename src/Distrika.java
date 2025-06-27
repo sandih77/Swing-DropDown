@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Distrika {
+
     String nom;
     String nomFaritra;
     int nbElu;
@@ -31,20 +32,25 @@ public class Distrika {
         return this.nom;
     }
 
-    // Ajoute cette méthode statique :
     public static List<Distrika> lireDepuisFichier(String cheminFichier) {
         List<Distrika> distrikas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty() || line.startsWith("#")) continue; // ignorer commentaires et lignes vides
-                String[] parts = line.split("\\|"); // ou le séparateur que tu utilises dans ton fichier Distrika.txt
-                if (parts.length < 3) continue; // vérifier la structure
+                if (line.trim().isEmpty() || line.startsWith("#")) {
+                    continue; 
 
+                }
+                String[] parts = line.split("\\|"); 
+                if (parts.length < 3) {
+                    continue; 
+                }
                 String faritra = parts[0].trim();
 
                 String[] nomParts = parts[1].split(":");
-                if (nomParts.length < 2) continue;
+                if (nomParts.length < 2) {
+                    continue;
+                }
 
                 String nomDistrika = nomParts[0].trim();
 
