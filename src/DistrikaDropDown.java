@@ -106,7 +106,6 @@ public class DistrikaDropDown extends JComboBox {
     public void filterByFaritra(String nomFaritra) {
         this.removeAllItems();
 
-        // Ajouter "Tous" en haut
         this.addItem("Tous");
 
         if (nomFaritra == null || nomFaritra.trim().isEmpty() || nomFaritra.equalsIgnoreCase("Tous")) {
@@ -116,7 +115,6 @@ public class DistrikaDropDown extends JComboBox {
             return;
         }
 
-        // Ajouter uniquement les Distrika correspondant au Faritra
         for (Distrika d : listDistrika) {
             if (d.getFaritra().equalsIgnoreCase(nomFaritra.trim())) {
                 this.addItem(d);

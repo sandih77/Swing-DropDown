@@ -37,7 +37,6 @@ public class FaritraDropDown extends JComboBox {
 
         this.listFaritra = list.toArray(new Faritra[0]);
 
-        // Ajouter "Tous" en premier dans la combo
         this.removeAllItems();
         this.addItem("Tous");
         for (Faritra f : listFaritra) {
@@ -50,10 +49,8 @@ public class FaritraDropDown extends JComboBox {
     public void filterByFaritany(String faritany) {
         this.removeAllItems();
 
-        // Ajouter "Tous" en haut
         this.addItem("Tous");
 
-        // Ajouter tous les Faritra si filtre vide ou "Tous"
         if (faritany == null || faritany.trim().isEmpty() || faritany.equalsIgnoreCase("Tous")) {
             for (Faritra f : listFaritra) {
                 this.addItem(f);
@@ -61,12 +58,10 @@ public class FaritraDropDown extends JComboBox {
             return;
         }
 
-        // Ajouter uniquement les Faritra correspondant au Faritany
         for (Faritra f : listFaritra) {
             if (f.getFaritany().equalsIgnoreCase(faritany.trim())) {
                 this.addItem(f);
             }
         }
     }
-
 }

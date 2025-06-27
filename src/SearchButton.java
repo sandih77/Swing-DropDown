@@ -18,9 +18,9 @@ public class SearchButton extends JButton {
     JTextArea gagnantArea;
 
     public SearchButton(String label,
-                        DistrikaDropDown distrikaDropDown,
-                        FaritraDropDown faritraDropDown,
-                        FaritanyDropDown faritanyDropDown) {
+            DistrikaDropDown distrikaDropDown,
+            FaritraDropDown faritraDropDown,
+            FaritanyDropDown faritanyDropDown) {
         super(label);
         this.distrikaDropDown = distrikaDropDown;
         this.faritraDropDown = faritraDropDown;
@@ -49,14 +49,14 @@ public class SearchButton extends JButton {
         String nomFaritra = faritraDropDown.getSelectedItem() instanceof Faritra
                 ? ((Faritra) faritraDropDown.getSelectedItem()).getNom()
                 : faritraDropDown.getSelectedItem() != null
-                    ? faritraDropDown.getSelectedItem().toString()
-                    : "Tous";
+                ? faritraDropDown.getSelectedItem().toString()
+                : "Tous";
 
         String nomDistrika = distrikaDropDown.getSelectedItem() instanceof Distrika
                 ? ((Distrika) distrikaDropDown.getSelectedItem()).getNom()
                 : distrikaDropDown.getSelectedItem() != null
-                    ? distrikaDropDown.getSelectedItem().toString()
-                    : "Tous";
+                ? distrikaDropDown.getSelectedItem().toString()
+                : "Tous";
 
         // Données
         List<Vote> allVotes = Vote.lireVotesDepuisFichier("data/Vote.txt");
@@ -68,22 +68,31 @@ public class SearchButton extends JButton {
         for (Vote v : allVotes) {
             String vDistrika = v.getDistrika();
             Distrika d = findDistrikaByName(allDistrika, vDistrika);
-            if (d == null) continue;
+            if (d == null) {
+                continue;
+            }
 
             String dFaritra = d.getFaritra();
             Faritra f = findFaritraByName(allFaritra, dFaritra);
-            if (f == null) continue;
+            if (f == null) {
+                continue;
+            }
 
             boolean match = true;
 
-            if (!"Tous".equalsIgnoreCase(nomDistrika) && !vDistrika.equalsIgnoreCase(nomDistrika))
+            if (!"Tous".equalsIgnoreCase(nomDistrika) && !vDistrika.equalsIgnoreCase(nomDistrika)) {
                 match = false;
-            if (!"Tous".equalsIgnoreCase(nomFaritra) && !f.getNom().equalsIgnoreCase(nomFaritra))
+            }
+            if (!"Tous".equalsIgnoreCase(nomFaritra) && !f.getNom().equalsIgnoreCase(nomFaritra)) {
                 match = false;
-            if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany))
+            }
+            if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany)) {
                 match = false;
+            }
 
-            if (match) votesFiltres.add(v);
+            if (match) {
+                votesFiltres.add(v);
+            }
         }
 
         // Affichage dans la table
@@ -92,8 +101,8 @@ public class SearchButton extends JButton {
             model.setRowCount(0);
             for (Vote v : votesFiltres) {
                 model.addRow(new Object[]{
-                        nomFaritany, nomFaritra, v.getDistrika(),
-                        v.getCandidat(), v.getNbVotes()
+                    nomFaritany, nomFaritra, v.getDistrika(),
+                    v.getCandidat(), v.getNbVotes()
                 });
             }
 
@@ -111,16 +120,24 @@ public class SearchButton extends JButton {
                 for (Distrika d : allDistrika) {
                     boolean match = true;
                     Faritra f = findFaritraByName(allFaritra, d.getFaritra());
-                    if (f == null) continue;
-                    if (!"Tous".equalsIgnoreCase(nomFaritra) && !f.getNom().equalsIgnoreCase(nomFaritra))
+                    if (f == null) {
+                        continue;
+                    }
+                    if (!"Tous".equalsIgnoreCase(nomFaritra) && !f.getNom().equalsIgnoreCase(nomFaritra)) {
                         match = false;
-                    if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany))
+                    }
+                    if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany)) {
                         match = false;
-                    if (match) distrikasConcernes.add(d);
+                    }
+                    if (match) {
+                        distrikasConcernes.add(d);
+                    }
                 }
             } else {
                 Distrika selected = findDistrikaByName(allDistrika, nomDistrika);
-                if (selected != null) distrikasConcernes.add(selected);
+                if (selected != null) {
+                    distrikasConcernes.add(selected);
+                }
             }
 
             List<String[]> elus = result.getElusParDistrika(votesFiltres, distrikasConcernes);
@@ -136,14 +153,18 @@ public class SearchButton extends JButton {
 
     public Distrika findDistrikaByName(Distrika[] list, String name) {
         for (Distrika d : list) {
-            if (d.getNom().equalsIgnoreCase(name)) return d;
+            if (d.getNom().equalsIgnoreCase(name)) {
+                return d;
+            }
         }
         return null;
     }
 
     public Faritra findFaritraByName(Faritra[] list, String name) {
         for (Faritra f : list) {
-            if (f.getNom().equalsIgnoreCase(name)) return f;
+            if (f.getNom().equalsIgnoreCase(name)) {
+                return f;
+            }
         }
         return null;
     }

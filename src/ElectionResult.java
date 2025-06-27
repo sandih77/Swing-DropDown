@@ -1,6 +1,7 @@
 package election;
 
 import entity.Distrika;
+import entity.Depute;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ public class ElectionResult {
             String nomDistrika = d.getNom();
             int nbElu = d.getNbElu();
 
-            // Filtrer les votes correspondant à ce distrika
             List<Vote> votesDistrika = new ArrayList<>();
             for (Vote v : votes) {
                 if (v.getDistrika().equalsIgnoreCase(nomDistrika)) {
@@ -23,7 +23,6 @@ public class ElectionResult {
                 }
             }
 
-            // Regrouper les voix par candidat (manuellement)
             List<String> candidats = new ArrayList<>();
             List<Integer> voix = new ArrayList<>();
 
@@ -38,22 +37,18 @@ public class ElectionResult {
                 }
             }
 
-            // Si aucun vote
             if (candidats.isEmpty()) {
                 elusParDistrika.add(new String[]{nomDistrika, "Aucun vote"});
                 continue;
             }
 
-            // Trier les candidats par nombre de voix (tri à bulles ou simple)
             for (int i = 0; i < voix.size() - 1; i++) {
                 for (int j = i + 1; j < voix.size(); j++) {
                     if (voix.get(j) > voix.get(i)) {
-                        // swap voix
                         int tmpV = voix.get(i);
                         voix.set(i, voix.get(j));
                         voix.set(j, tmpV);
 
-                        // swap candidats
                         String tmpC = candidats.get(i);
                         candidats.set(i, candidats.get(j));
                         candidats.set(j, tmpC);
@@ -61,7 +56,6 @@ public class ElectionResult {
                 }
             }
 
-            // Élire en fonction du nombre d’élus
             String resultat;
             if (nbElu == 1 || candidats.size() == 1) {
                 resultat = candidats.get(0) + " (" + voix.get(0) + " votes)";

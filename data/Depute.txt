@@ -11,3 +11,4 @@ C7|Talata-Dondona|G3
 C8|Talata-Dondona|G1
 C7|Talata-Dondona1|G3
 C8|Talata-Dondona1|G1
+C9|Ambatomange|G1

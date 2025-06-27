@@ -17,12 +17,20 @@ public class Depute {
         return this.nom;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     public String getDistrika() {
         return this.nomDistrika;
     }
 
     public String getGroupe() {
         return this.nomGroupe;
+    }
+
+    public void setGroupe(String g) {
+        this.nomGroupe = g;
     }
 
     public String getSuppleant() {
