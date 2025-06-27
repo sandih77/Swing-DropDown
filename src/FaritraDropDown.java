@@ -28,33 +28,45 @@ public class FaritraDropDown extends JComboBox {
                 String faritany = parts[0].trim();
                 String nom = parts[1].trim();
 
-                // System.out.println("Ligne lue : " + line);
-                Faritra Faritra = new Faritra(nom, faritany);
-                list.add(Faritra);
-                this.addItem(Faritra);
+                Faritra faritra = new Faritra(nom, faritany);
+                list.add(faritra);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         this.listFaritra = list.toArray(new Faritra[0]);
+
+        // Ajouter "Tous" en premier dans la combo
+        this.removeAllItems();
+        this.addItem("Tous");
+        for (Faritra f : listFaritra) {
+            this.addItem(f);
+        }
+
         return this.listFaritra;
     }
 
     public void filterByFaritany(String faritany) {
         this.removeAllItems();
 
-        if (faritany == null || faritany.isEmpty() || faritany.equalsIgnoreCase("Tous")) {
+        // Ajouter "Tous" en haut
+        this.addItem("Tous");
+
+        // Ajouter tous les Faritra si filtre vide ou "Tous"
+        if (faritany == null || faritany.trim().isEmpty() || faritany.equalsIgnoreCase("Tous")) {
             for (Faritra f : listFaritra) {
                 this.addItem(f);
             }
             return;
         }
 
+        // Ajouter uniquement les Faritra correspondant au Faritany
         for (Faritra f : listFaritra) {
-            if (f.getFaritany().equalsIgnoreCase(faritany)) {
+            if (f.getFaritany().equalsIgnoreCase(faritany.trim())) {
                 this.addItem(f);
             }
         }
     }
+
 }

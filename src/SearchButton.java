@@ -1,15 +1,13 @@
 package gui.button;
 
 import component.*;
-import entity.Distrika;
+import entity.*;
 import election.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchButton extends JButton {
 
@@ -20,9 +18,9 @@ public class SearchButton extends JButton {
     JTextArea gagnantArea;
 
     public SearchButton(String label,
-            DistrikaDropDown distrikaDropDown,
-            FaritraDropDown faritraDropDown,
-            FaritanyDropDown faritanyDropDown) {
+                        DistrikaDropDown distrikaDropDown,
+                        FaritraDropDown faritraDropDown,
+                        FaritanyDropDown faritanyDropDown) {
         super(label);
         this.distrikaDropDown = distrikaDropDown;
         this.faritraDropDown = faritraDropDown;
@@ -43,31 +41,59 @@ public class SearchButton extends JButton {
     }
 
     public void afficherVotesFiltres() {
-        String nomDistrika = distrikaDropDown.getSelectedItem() != null
-                ? distrikaDropDown.getSelectedItem().toString() : "";
-        String nomFaritra = faritraDropDown.getSelectedItem() != null
-                ? faritraDropDown.getSelectedItem().toString() : "";
+        // Récupération des noms sélectionnés
         String nomFaritany = faritanyDropDown.getSelectedItem() != null
-                ? faritanyDropDown.getSelectedItem().toString() : "";
+                ? faritanyDropDown.getSelectedItem().toString()
+                : "Tous";
 
-        List<Vote> votes = Vote.lireVotesDepuisFichier("data/Vote.txt");
+        String nomFaritra = faritraDropDown.getSelectedItem() instanceof Faritra
+                ? ((Faritra) faritraDropDown.getSelectedItem()).getNom()
+                : faritraDropDown.getSelectedItem() != null
+                    ? faritraDropDown.getSelectedItem().toString()
+                    : "Tous";
 
+        String nomDistrika = distrikaDropDown.getSelectedItem() instanceof Distrika
+                ? ((Distrika) distrikaDropDown.getSelectedItem()).getNom()
+                : distrikaDropDown.getSelectedItem() != null
+                    ? distrikaDropDown.getSelectedItem().toString()
+                    : "Tous";
+
+        // Données
+        List<Vote> allVotes = Vote.lireVotesDepuisFichier("data/Vote.txt");
+        Faritra[] allFaritra = faritraDropDown.getListFaritra();
+        Distrika[] allDistrika = distrikaDropDown.getListDistrika();
+
+        // Filtrage
         List<Vote> votesFiltres = new ArrayList<>();
-        for (Vote v : votes) {
-            if (nomDistrika.equalsIgnoreCase("Tous") || nomDistrika.isEmpty()) {
-                votesFiltres.add(v);
-            } else if (v.getDistrika().equalsIgnoreCase(nomDistrika)) {
-                votesFiltres.add(v);
-            }
+        for (Vote v : allVotes) {
+            String vDistrika = v.getDistrika();
+            Distrika d = findDistrikaByName(allDistrika, vDistrika);
+            if (d == null) continue;
+
+            String dFaritra = d.getFaritra();
+            Faritra f = findFaritraByName(allFaritra, dFaritra);
+            if (f == null) continue;
+
+            boolean match = true;
+
+            if (!"Tous".equalsIgnoreCase(nomDistrika) && !vDistrika.equalsIgnoreCase(nomDistrika))
+                match = false;
+            if (!"Tous".equalsIgnoreCase(nomFaritra) && !f.getNom().equalsIgnoreCase(nomFaritra))
+                match = false;
+            if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany))
+                match = false;
+
+            if (match) votesFiltres.add(v);
         }
 
+        // Affichage dans la table
         if (resultTable != null) {
             DefaultTableModel model = (DefaultTableModel) resultTable.getModel();
             model.setRowCount(0);
             for (Vote v : votesFiltres) {
                 model.addRow(new Object[]{
-                    nomFaritany, nomFaritra,
-                    v.getDistrika(), v.getCandidat(), v.getNbVotes()
+                        nomFaritany, nomFaritra, v.getDistrika(),
+                        v.getCandidat(), v.getNbVotes()
                 });
             }
 
@@ -76,34 +102,49 @@ public class SearchButton extends JButton {
             }
         }
 
-        ElectionResult result = new ElectionResult();
+        // Affichage du gagnant
+        if (gagnantArea != null) {
+            ElectionResult result = new ElectionResult();
+            List<Distrika> distrikasConcernes = new ArrayList<>();
 
-        if (nomDistrika.equalsIgnoreCase("Tous") || nomDistrika.isEmpty()) {
-            // Cas : Tous les distrika → charger la map complète
-            Map<String, Distrika> distrikaMap = DistrikaDropDown.getAllDistrikaAsMap(); // 🔧 tu dois créer cette méthode
-            Map<String, String> elus = result.getElusParDistrika(votes, distrikaMap);
-
-            StringBuilder sb = new StringBuilder("Élus par Distrika :\n");
-            for (Map.Entry<String, String> entry : elus.entrySet()) {
-                sb.append("- ").append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
+            if ("Tous".equalsIgnoreCase(nomDistrika)) {
+                for (Distrika d : allDistrika) {
+                    boolean match = true;
+                    Faritra f = findFaritraByName(allFaritra, d.getFaritra());
+                    if (f == null) continue;
+                    if (!"Tous".equalsIgnoreCase(nomFaritra) && !f.getNom().equalsIgnoreCase(nomFaritra))
+                        match = false;
+                    if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany))
+                        match = false;
+                    if (match) distrikasConcernes.add(d);
+                }
+            } else {
+                Distrika selected = findDistrikaByName(allDistrika, nomDistrika);
+                if (selected != null) distrikasConcernes.add(selected);
             }
 
-            if (gagnantArea != null) {
-                gagnantArea.setText(sb.toString());
+            List<String[]> elus = result.getElusParDistrika(votesFiltres, distrikasConcernes);
+
+            StringBuilder sb = new StringBuilder("Élus :\n");
+            for (String[] entry : elus) {
+                sb.append("- ").append(entry[0]).append(" : ").append(entry[1]).append("\n");
             }
 
-        } else {
-            // Cas : un seul distrika
-            Distrika selectedDistrika = distrikaDropDown.getSelectedDistrika();
-            Map<String, Distrika> oneDistrikaMap = new HashMap<>();
-            oneDistrikaMap.put(nomDistrika, selectedDistrika);
-
-            Map<String, String> elus = result.getElusParDistrika(votesFiltres, oneDistrikaMap);
-            String texteElu = elus.getOrDefault(nomDistrika, "Aucun élu");
-
-            if (gagnantArea != null) {
-                gagnantArea.setText("Élu(s) pour " + nomDistrika + " : " + texteElu);
-            }
+            gagnantArea.setText(sb.toString());
         }
+    }
+
+    public Distrika findDistrikaByName(Distrika[] list, String name) {
+        for (Distrika d : list) {
+            if (d.getNom().equalsIgnoreCase(name)) return d;
+        }
+        return null;
+    }
+
+    public Faritra findFaritraByName(Faritra[] list, String name) {
+        for (Faritra f : list) {
+            if (f.getNom().equalsIgnoreCase(name)) return f;
+        }
+        return null;
     }
 }

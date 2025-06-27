@@ -11,7 +11,7 @@ public class Localite extends JPanel {
     FaritanyDropDown faritanyDropDown;
 
     public Localite() {
-        setLayout(new GridLayout(3, 2));
+        setLayout(new GridLayout(4, 2));
         distrikaDropDown = new DistrikaDropDown();
         faritraDropDown = new FaritraDropDown();
         faritanyDropDown = new FaritanyDropDown();

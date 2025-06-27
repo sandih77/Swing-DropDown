@@ -33,7 +33,7 @@ public class DistrikaDropDown extends JComboBox {
 
                 String[] parts = line.split("\\|");
                 if (parts.length < 3) {
-                    System.out.println("Ligne ignoree (format incorrect) : " + line);
+                    System.out.println("Ligne ignorée (format incorrect) : " + line);
                     continue;
                 }
 
@@ -57,13 +57,11 @@ public class DistrikaDropDown extends JComboBox {
                 try {
                     nbelu = Integer.parseInt(parts[2].trim());
                 } catch (NumberFormatException e) {
-                    System.out.println("Nombre d’electeurs invalide : " + parts[2]);
+                    System.out.println("Nombre d’électeurs invalide : " + parts[2]);
                 }
 
                 Distrika d = new Distrika(nomDistrika, faritra, nbelu);
                 list.add(d);
-                this.addItem(d);
-                // System.out.println("Distrika ajoute: " + d);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,16 +70,23 @@ public class DistrikaDropDown extends JComboBox {
         this.listBVS = listBureauVotes.toArray(new BureauVote[0]);
         this.listDistrika = list.toArray(new Distrika[0]);
 
+        // Ajouter "Tous" puis les Distrika
+        this.removeAllItems();
+        this.addItem("Tous");
+        for (Distrika d : listDistrika) {
+            this.addItem(d);
+        }
+
         return this.listDistrika;
     }
 
     public void filterByFaritanyAndFaritra(String nomFaritany, String nomFaritra, Faritra[] allFaritra) {
         this.removeAllItems();
+        this.addItem("Tous");
 
         for (Distrika d : listDistrika) {
             String faritraDistrika = d.getFaritra();
 
-            // Trouver l'objet Faritra correspondant
             for (Faritra f : allFaritra) {
                 if (f.getNom().equalsIgnoreCase(faritraDistrika)) {
                     String faritanyOfFaritra = f.getFaritany();
@@ -101,8 +106,19 @@ public class DistrikaDropDown extends JComboBox {
     public void filterByFaritra(String nomFaritra) {
         this.removeAllItems();
 
+        // Ajouter "Tous" en haut
+        this.addItem("Tous");
+
+        if (nomFaritra == null || nomFaritra.trim().isEmpty() || nomFaritra.equalsIgnoreCase("Tous")) {
+            for (Distrika d : listDistrika) {
+                this.addItem(d);
+            }
+            return;
+        }
+
+        // Ajouter uniquement les Distrika correspondant au Faritra
         for (Distrika d : listDistrika) {
-            if (nomFaritra.equalsIgnoreCase("Tous") || d.getFaritra().equalsIgnoreCase(nomFaritra)) {
+            if (d.getFaritra().equalsIgnoreCase(nomFaritra.trim())) {
                 this.addItem(d);
             }
         }
@@ -119,13 +135,9 @@ public class DistrikaDropDown extends JComboBox {
 
     public Distrika getSelectedDistrika() {
         Object selected = this.getSelectedItem();
-        if (selected == null) {
-            return null;
-        }
         if (selected instanceof Distrika) {
             return (Distrika) selected;
         }
         return null;
     }
-
 }

@@ -1,5 +1,4 @@
 #Faritra|Distrika
-Tous|Tous:Tous|1
 Antananarivo Atsimondrano|Ampitatafika:BV101,BV102|1
 Antsirabe I|Ambohimena:BV201,BV202|2
 Toamasina I|Tanamabao Verrerie:BV301,BV302|2
