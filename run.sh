@@ -18,9 +18,7 @@ if javac -d classes \
     src/listener/*.java \
     src/main/*.java; then
     
-    echo "✅ Compilation réussie. Lancement de l'application..."
     java -cp classes main.Main
 else
-    echo "❌ Erreur lors de la compilation"
     exit 1
 fi

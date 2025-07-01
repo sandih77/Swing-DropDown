@@ -1,8 +1,8 @@
 package election;
 
+import candidat.*;
 import entity.*;
 import java.util.*;
-import candidat.*;
 
 public class ElectionResult {
 
@@ -78,7 +78,6 @@ public class ElectionResult {
                         // System.out.println("Départage entre candidats :");
                         // System.out.println("Candidat 1: " + c1 + ", Groupe: " + (g1 != null ? g1.getNom() : "null") + ", Date Fondation: " + (g1 != null ? g1.getDateFondation() : "null") + ", Votes: " + v1);
                         // System.out.println("Candidat 2: " + c2 + ", Groupe: " + (g2 != null ? g2.getNom() : "null") + ", Date Fondation: " + (g2 != null ? g2.getDateFondation() : "null") + ", Votes: " + v2);
-
                         int comparaison = comparerDatesFondation(g1, g2);
                         if (comparaison < 0) {
                             resultat = c1 + " (" + v1 + " votes)";
@@ -107,7 +106,6 @@ public class ElectionResult {
                         // System.out.println("Départage entre candidats :");
                         // System.out.println("Candidat 1: " + c1 + ", Groupe: " + (g1 != null ? g1.getNom() : "null") + ", Date Fondation: " + (g1 != null ? g1.getDateFondation() : "null") + ", Votes: " + v1);
                         // System.out.println("Candidat 2: " + c2 + ", Groupe: " + (g2 != null ? g2.getNom() : "null") + ", Date Fondation: " + (g2 != null ? g2.getDateFondation() : "null") + ", Votes: " + v2);
-
                         int comparaison = comparerDatesFondation(g1, g2);
                         if (comparaison < 0) {
                             resultat = c1 + " (" + v1 + " votes)";
@@ -145,9 +143,6 @@ public class ElectionResult {
     }
 
     public Groupe findGroupeByName(List<Groupe> list, String name) {
-        if (name == null) {
-            return null;
-        }
         for (Groupe f : list) {
             if (f.getNom().equalsIgnoreCase(name)) {
                 return f;

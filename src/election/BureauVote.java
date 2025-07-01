@@ -1,6 +1,7 @@
 package election;
 
 public class BureauVote {
+
     String nom;
     String distrika;
 

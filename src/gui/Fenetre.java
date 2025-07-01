@@ -2,10 +2,9 @@ package gui;
 
 import component.Localite;
 import gui.button.SearchButton;
-
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 
 public class Fenetre extends JPanel {
 
@@ -33,7 +32,7 @@ public class Fenetre extends JPanel {
 
         searchButton.setResultTable(resultTable);
 
-        JTextArea gagnantArea = new JTextArea(5, 50);
+        JTextArea gagnantArea = new JTextArea(10, 50);
         gagnantArea.setEditable(false);
         gagnantArea.setLineWrap(true);
         gagnantArea.setWrapStyleWord(true);
