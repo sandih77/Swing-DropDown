@@ -12,6 +12,11 @@ public class Groupe {
     String nom;
     Date dateFondation;
 
+    public Groupe(String nom, Date d) {
+        this.nom = nom;
+        this.dateFondation = d;
+    }
+
     public String getNom() {
         return this.nom;
     }
@@ -28,7 +33,12 @@ public class Groupe {
         this.dateFondation = dateFondation;
     }
 
-    public List<Groupe> chargerGroupesDepuisFichier(String cheminFichier) {
+    @Override
+    public String toString() {
+        return this.nom;
+    }
+
+    public static List<Groupe> chargerGroupesDepuisFichier(String cheminFichier) {
         List<Groupe> groupes = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -43,9 +53,7 @@ public class Groupe {
                     String nom = parties[0].trim();
                     Date dateFondation = sdf.parse(parties[1].trim());
 
-                    Groupe g = new Groupe();
-                    g.setNom(nom);
-                    g.setDateFondation(dateFondation);
+                    Groupe g = new Groupe(nom, dateFondation);
 
                     groupes.add(g);
                 }

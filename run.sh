@@ -1,11 +1,26 @@
+#!/bin/bash
 clear
 
-echo "Compilation en cours..."
+echo "🔄 Compilation en cours..."
 
-rm -r classes
+if [ -d "classes" ]; then
+    rm -r classes
+fi
 
-if javac -d classes src/*.java; then
+mkdir -p classes
+
+if javac -d classes \
+    src/candidat/*.java \
+    src/component/*.java \
+    src/election/*.java \
+    src/entity/*.java \
+    src/gui/*.java \
+    src/listener/*.java \
+    src/main/*.java; then
+    
+    echo "✅ Compilation réussie. Lancement de l'application..."
     java -cp classes main.Main
 else
-    echo "Erreur lors de la compilation"
+    echo "❌ Erreur lors de la compilation"
+    exit 1
 fi

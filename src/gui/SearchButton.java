@@ -3,6 +3,7 @@ package gui.button;
 import component.*;
 import entity.*;
 import election.*;
+import candidat.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +42,6 @@ public class SearchButton extends JButton {
     }
 
     public void afficherVotesFiltres() {
-        // Récupération des noms sélectionnés
         String nomFaritany = faritanyDropDown.getSelectedItem() != null
                 ? faritanyDropDown.getSelectedItem().toString()
                 : "Tous";
@@ -58,12 +58,16 @@ public class SearchButton extends JButton {
                 ? distrikaDropDown.getSelectedItem().toString()
                 : "Tous";
 
-        // Données
         List<Vote> allVotes = Vote.lireVotesDepuisFichier("data/Vote.txt");
         Faritra[] allFaritra = faritraDropDown.getListFaritra();
         Distrika[] allDistrika = distrikaDropDown.getListDistrika();
+        List<Groupe> allGroupes = Groupe.chargerGroupesDepuisFichier("data/Groupe.txt");
+        List<Depute> allDeputes = Depute.chargerDeputes("data/Depute.txt");
 
-        // Filtrage
+        for (Groupe g : allGroupes) {
+            // System.out.println(g);
+        }
+
         List<Vote> votesFiltres = new ArrayList<>();
         for (Vote v : allVotes) {
             String vDistrika = v.getDistrika();
@@ -95,7 +99,6 @@ public class SearchButton extends JButton {
             }
         }
 
-        // Affichage dans la table
         if (resultTable != null) {
             DefaultTableModel model = (DefaultTableModel) resultTable.getModel();
             model.setRowCount(0);
@@ -107,11 +110,10 @@ public class SearchButton extends JButton {
             }
 
             if (votesFiltres.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Aucun résultat trouvé.");
+                JOptionPane.showMessageDialog(this, "Aucun resultat trouve.");
             }
         }
 
-        // Affichage du gagnant
         if (gagnantArea != null) {
             ElectionResult result = new ElectionResult();
             List<Distrika> distrikasConcernes = new ArrayList<>();
@@ -140,9 +142,9 @@ public class SearchButton extends JButton {
                 }
             }
 
-            List<String[]> elus = result.getElusParDistrika(votesFiltres, distrikasConcernes);
+            List<String[]> elus = result.getElusParDistrika(votesFiltres, distrikasConcernes, allGroupes, allDeputes);
 
-            StringBuilder sb = new StringBuilder("Élus :\n");
+            StringBuilder sb = new StringBuilder("elus :\n");
             for (String[] entry : elus) {
                 sb.append("- ").append(entry[0]).append(" : ").append(entry[1]).append("\n");
             }
