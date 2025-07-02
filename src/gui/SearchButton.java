@@ -15,6 +15,7 @@ public class SearchButton extends JButton {
     DistrikaDropDown distrikaDropDown;
     FaritraDropDown faritraDropDown;
     FaritanyDropDown faritanyDropDown;
+    BureauVoteDropDown bureauVoteDropDown;
     JTable resultTable;
     JTextArea gagnantArea;
 
@@ -93,7 +94,6 @@ public class SearchButton extends JButton {
             if (!"Tous".equalsIgnoreCase(nomFaritany) && !f.getFaritany().equalsIgnoreCase(nomFaritany)) {
                 match = false;
             }
-
             if (match) {
                 votesFiltres.add(v);
             }
@@ -101,11 +101,12 @@ public class SearchButton extends JButton {
 
         if (resultTable != null) {
             DefaultTableModel model = (DefaultTableModel) resultTable.getModel();
+            
             model.setRowCount(0);
             for (Vote v : votesFiltres) {
                 model.addRow(new Object[]{
                     nomFaritany, nomFaritra, v.getDistrika(),
-                    v.getCandidat(), v.getNbVotes()
+                    v.getCandidat(), v.getBureau(), v.getNbVotes()
                 });
             }
 
@@ -169,5 +170,9 @@ public class SearchButton extends JButton {
             }
         }
         return null;
+    }
+
+    public void setBureauVoteDropDown(BureauVoteDropDown bureauVoteDropDown) {
+        this.bureauVoteDropDown = bureauVoteDropDown;
     }
 }

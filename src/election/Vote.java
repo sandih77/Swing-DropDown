@@ -7,12 +7,14 @@ public class Vote {
 
     String distrika;
     String candidat;
+    String bureaudeVote;
     int nbVotes;
 
-    public Vote(String distrika, String candidat, int nbVotes) {
+    public Vote(String distrika, String candidat, String Bureau, int nbVotes) {
         this.distrika = distrika;
         this.candidat = candidat;
         this.nbVotes = nbVotes;
+        this.bureaudeVote = Bureau;
     }
 
     public String getDistrika() {
@@ -25,6 +27,10 @@ public class Vote {
 
     public int getNbVotes() {
         return nbVotes;
+    }
+
+    public String getBureau() {
+        return this.bureaudeVote;
     }
 
     @Override
@@ -46,12 +52,13 @@ public class Vote {
                 }
 
                 String[] parties = ligne.split("\\|");
-                if (parties.length == 3) {
+                if (parties.length == 4) {
                     String distrika = parties[0].trim();
                     String candidat = parties[1].trim();
-                    int nbVotes = Integer.parseInt(parties[2].trim());
+                    String bureau = parties[2].trim();
+                    int nbVotes = Integer.parseInt(parties[3].trim());
 
-                    listeVotes.add(new Vote(distrika, candidat, nbVotes));
+                    listeVotes.add(new Vote(distrika, candidat, bureau, nbVotes));
                 }
             }
         } catch (IOException | NumberFormatException e) {

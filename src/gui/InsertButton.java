@@ -45,7 +45,7 @@ public class InsertButton extends JButton {
             return;
         }
 
-        String line = String.join("|", d.getNom(), depute.getNom(), String.valueOf(nbVotes));
+        String line = String.join("|", d.getNom(), depute.getGroupe(), depute.getNom(), String.valueOf(nbVotes));
         File file = new File(fichier);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {

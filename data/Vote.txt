@@ -1,19 +1,19 @@
-#Distrika|Candidat|Nbvote
-Ampitatafika|C1|325
-Ampitatafika|C2|287
-Ampitatafika|C1|410
-Ampitatafika|C2|379
-Ambohimena|C3|309
-Ambohimena|C4|585
-Ambohimena|C3|322
-Ambohimena|C4|678
-Tanamabao Verrerie|C5|200
-Tanamabao Verrerie|C6|288
-Tanamabao Verrerie|C5|199
-Tanamabao Verrerie|C6|410
-Ambatomanga|C7|4534
-Ambatomanga|C8|5433
-Talata-Dondona|C7|4995
-Talata-Dondona|C8|3775
-Talata-Dondona1|C7|4214
-Talata-Dondona1|C8|4535
+#Distrika|Candidat|BV|Nbvote
+Ampitatafika|C1|BV101|325
+Ampitatafika|C2|BV101|287
+Ampitatafika|C1|BV102|410
+Ampitatafika|C2|BV102|379
+Ambohimena|C3|BV201|309
+Ambohimena|C4|BV201|585
+Ambohimena|C3|BV202|322
+Ambohimena|C4|BV202|678
+Tanamabao Verrerie|C5|BV301|200
+Tanamabao Verrerie|C6|BV301|288
+Tanamabao Verrerie|C5|BV302|199
+Tanamabao Verrerie|C6|BV302|410
+Ambatomanga|C7|BV401|4534
+Ambatomanga|C8|BV401|5433
+Talata-Dondona|C7|BV402|4995
+Talata-Dondona|C8|BV402|3775
+Talata-Dondona1|C7|BV403|4214
+Talata-Dondona1|C8|BV403|4535
