@@ -4,6 +4,7 @@ import component.*;
 import javax.swing.*;
 import java.io.*;
 import entity.*;
+import election.*;
 
 public class InsertButton extends JButton {
 
@@ -11,6 +12,7 @@ public class InsertButton extends JButton {
     FaritraDropDown faritraDropDown;
     FaritanyDropDown faritanyDropDown;
     DeputeDropDown deputeDropDown;
+    BureauVoteDropDown bureauVoteDropDown;
     JTextField votes;
 
     public InsertButton(String label,
@@ -18,12 +20,14 @@ public class InsertButton extends JButton {
             FaritraDropDown faritraDropDown,
             FaritanyDropDown faritanyDropDown,
             DeputeDropDown deputeDropDown,
+            BureauVoteDropDown bureauVoteDropDown,
             JTextField votes) {
         super(label);
         this.distrikaDropDown = distrikaDropDown;
         this.faritraDropDown = faritraDropDown;
         this.faritanyDropDown = faritanyDropDown;
         this.deputeDropDown = deputeDropDown;
+        this.bureauVoteDropDown = bureauVoteDropDown;
         this.votes = votes;
 
         addActionListener(e -> saveVoteToFile("data/Vote.txt"));
@@ -32,6 +36,7 @@ public class InsertButton extends JButton {
     public void saveVoteToFile(String fichier) {
         Distrika d = (Distrika) distrikaDropDown.getSelectedItem();
         Depute depute = (Depute) deputeDropDown.getSelectedItem();
+        String bv = (String) bureauVoteDropDown.getSelectedItem();
         String voteStr = votes.getText().trim();
 
         int nbVotes;
@@ -45,7 +50,7 @@ public class InsertButton extends JButton {
             return;
         }
 
-        String line = String.join("|", d.getNom(), depute.getGroupe(), depute.getNom(), String.valueOf(nbVotes));
+        String line = String.join("|", d.getNom(), depute.getNom(), bv, String.valueOf(nbVotes));
         File file = new File(fichier);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {

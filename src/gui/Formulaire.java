@@ -42,6 +42,7 @@ public class Formulaire extends JPanel {
                 localite.getFaritraDropDown(),
                 localite.getFaritanyDropDown(),
                 deputeDropDown,
+                bureauVoteDropDown,
                 votes
         );
 
