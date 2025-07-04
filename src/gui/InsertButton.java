@@ -61,7 +61,7 @@ public class InsertButton extends JButton {
 
             writer.write(line);
             writer.newLine();
-            JOptionPane.showMessageDialog(this, "Vote enregistré avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vote enregistré avec succes !", "Succes", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Erreur lors de l'enregistrement du vote : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
